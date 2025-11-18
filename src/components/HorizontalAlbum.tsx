@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import ShinyText from './ShinyText';
 
 export default function HorizontalAlbum() {
@@ -11,19 +12,18 @@ export default function HorizontalAlbum() {
 
   // List of all image files from public folder
   const images = [
-    '1.PNG',
-    '2.PNG', // Changed from IMG_3145.PNG to IMG_3146.PNG
-    '3.PNG',
-    '4.PNG',
-    '5.PNG',
-    '6.PNG',
-    '7.PNG',
-    '8.PNG',
-    '9.PNG',
-    '10.PNG',
-    '11.PNG',
-    '12.PNG',
-    '13.PNG'
+    '2.webp',
+    '3.webp',
+    '4.webp',
+    '5.webp',
+    '6.webp',
+    '7.webp',
+    '8.webp',
+    '9.webp',
+    '10.webp',
+    '11.webp',
+    '12.webp',
+    '13.webp'
   ];
 
   // Persian texts
@@ -184,10 +184,14 @@ export default function HorizontalAlbum() {
               }}
             >
               {/* Simple image without any effects */}
-              <img
+              <Image
                 src={`/${image}`}
                 alt={`Album image ${index + 1}`}
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 300px, 600px"
+                quality={85}
+                priority={index < 3}
               />
             </div>
           ))}

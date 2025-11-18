@@ -5,10 +5,20 @@ import ShinyText from "@/components/ShinyText";
 import Navigation from "@/components/Navigation";
 import VandaLogo from "@/components/VandaLogo";
 import HorizontalAlbum from "@/components/HorizontalAlbum";
-import AboutSection from "../components/AboutSection";
-import CraftsmanshipSection from "../components/CraftsmanshipSection";
-import BenefitsSection from "../components/BenefitsSection";
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+
+// Dynamically import heavy components to reduce initial bundle size
+const AboutSection = dynamic(() => import("../components/AboutSection"), {
+  loading: () => <div className="h-32 bg-black animate-pulse" />
+});
+const CraftsmanshipSection = dynamic(() => import("../components/CraftsmanshipSection"), {
+  loading: () => <div className="h-32 bg-black animate-pulse" />
+});
+const BenefitsSection = dynamic(() => import("../components/BenefitsSection"), {
+  loading: () => <div className="h-32 bg-black animate-pulse" />
+});
 
 export default function Home() {
   const [isTextVisible, setIsTextVisible] = useState(false);
@@ -17,19 +27,19 @@ export default function Home() {
 
   // Array of images for mobile album
   const images = [
-    '/2.PNG',
-    '/3.PNG',
-    '/4.PNG',
-    '/5.PNG',
-    '/6.PNG',
-    '/7.PNG',
-    '/8.PNG',
-    '/9.PNG',
-    '/10.PNG',
-    '/11.PNG',
-    '/12.PNG',
-    '/13.PNG',
-    '/1.PNG'
+    '/2.webp',
+    '/3.webp',
+    '/4.webp',
+    '/5.webp',
+    '/6.webp',
+    '/7.webp',
+    '/8.webp',
+    '/9.webp',
+    '/10.webp',
+    '/11.webp',
+    '/12.webp',
+    '/13.webp',
+    '/1.webp'
   ];
 
   useEffect(() => {
@@ -199,10 +209,14 @@ export default function Home() {
                       className="flex-shrink-0 h-full relative"
                       style={{ width: `${100 / images.length}%` }}
                     >
-                      <img
+                      <Image
                         src={image}
                         alt={`Album ${index + 1}`}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 600px"
+                        quality={85}
+                        priority={index === 0}
                       />
                     </div>
                   ))}

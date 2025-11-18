@@ -83,6 +83,7 @@ export default function AboutSection() {
                                     alt="Handpan crafting process in our workshop"
                                     fill
                                     className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                    quality={100}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                             </div>

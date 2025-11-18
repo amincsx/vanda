@@ -18,23 +18,47 @@ export default function WorkshopGallery() {
         'IMG_3791.PNG'
     ];
 
+    // Album images from public/
+    const albumImages = [
+        '1.webp',
+        '2.webp',
+        '3.webp',
+        '4.webp',
+        '5.webp',
+        '6.webp',
+        '7.webp',
+        '8.webp',
+        '9.webp',
+        '10.webp',
+        '11.webp',
+        '12.webp',
+        '13.webp'
+    ];
+
+    // Combine all images
+    const allImages = [
+        ...albumImages.map(img => ({ src: `/${img}`, type: 'album', name: img })),
+        ...workshopImages.map(img => ({ src: `/workshop pics/${img}`, type: 'workshop', name: img }))
+    ];
+
     return (
         <>
             {/* Gallery Grid */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-                    {workshopImages.map((image, index) => (
+                    {allImages.map((imageObj, index) => (
                         <div
-                            key={image}
+                            key={imageObj.name}
                             className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-white/10 transition-all duration-500 hover:scale-105 hover:border-yellow-400/50 hover:shadow-2xl hover:shadow-yellow-400/20"
-                            onClick={() => setSelectedImage(image)}
+                            onClick={() => setSelectedImage(imageObj.name)}
                         >
                             <Image
-                                src={`/workshop pics/${image}`}
-                                alt={`Workshop moment ${index + 1}`}
+                                src={imageObj.src}
+                                alt={imageObj.type === 'workshop' ? `Workshop moment ${index + 1}` : `Album image ${index + 1}`}
                                 fill
                                 className="object-cover transition-all duration-700 group-hover:scale-110"
-                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                                quality={imageObj.type === 'workshop' ? 100 : 85}
+                                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                             />
 
                             {/* Overlay */}
@@ -42,7 +66,7 @@ export default function WorkshopGallery() {
 
                             {/* Hover Text */}
                             <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                                <p className="text-sm font-medium">Workshop Moment</p>
+                                <p className="text-sm font-medium">{imageObj.type === 'workshop' ? 'Workshop Moment' : 'Handpan Collection'}</p>
                                 <p className="text-xs text-yellow-200">Click to view</p>
                             </div>
 
@@ -71,11 +95,12 @@ export default function WorkshopGallery() {
                         {/* Image */}
                         <div className="relative w-full h-full max-w-3xl max-h-[80vh]">
                             <Image
-                                src={`/workshop pics/${selectedImage}`}
-                                alt="Workshop moment"
+                                src={allImages.find(img => img.name === selectedImage)?.src || ''}
+                                alt={allImages.find(img => img.name === selectedImage)?.type === 'workshop' ? 'Workshop moment' : 'Handpan collection'}
                                 fill
                                 className="object-contain rounded-lg"
                                 sizes="90vw"
+                                quality={allImages.find(img => img.name === selectedImage)?.type === 'workshop' ? 100 : 85}
                                 priority
                             />
                         </div>
@@ -84,9 +109,9 @@ export default function WorkshopGallery() {
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
-                                const currentIndex = workshopImages.indexOf(selectedImage);
-                                const prevIndex = currentIndex > 0 ? currentIndex - 1 : workshopImages.length - 1;
-                                setSelectedImage(workshopImages[prevIndex]);
+                                const currentIndex = allImages.findIndex(img => img.name === selectedImage);
+                                const prevIndex = currentIndex > 0 ? currentIndex - 1 : allImages.length - 1;
+                                setSelectedImage(allImages[prevIndex].name);
                             }}
                             className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white text-lg sm:text-xl transition-all duration-300 hover:scale-110 border border-white/20 touch-target"
                         >
@@ -96,9 +121,9 @@ export default function WorkshopGallery() {
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
-                                const currentIndex = workshopImages.indexOf(selectedImage);
-                                const nextIndex = currentIndex < workshopImages.length - 1 ? currentIndex + 1 : 0;
-                                setSelectedImage(workshopImages[nextIndex]);
+                                const currentIndex = allImages.findIndex(img => img.name === selectedImage);
+                                const nextIndex = currentIndex < allImages.length - 1 ? currentIndex + 1 : 0;
+                                setSelectedImage(allImages[nextIndex].name);
                             }}
                             className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white text-lg sm:text-xl transition-all duration-300 hover:scale-110 border border-white/20 touch-target"
                         >
