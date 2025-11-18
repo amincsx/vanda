@@ -1,11 +1,11 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // Ensure Turbopack uses THIS folder as the workspace root
-  // See: https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory
-  // @ts-expect-error - turbopack is not in typed NextConfig yet
-  turbopack: {
-    root: __dirname,
+  /* config options here */
+  experimental: {
+    turbo: {
+      root: __dirname,
+    },
   },
   eslint: {
     ignoreDuringBuilds: true,
@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  output: 'standalone',
 };
 
 export default nextConfig;

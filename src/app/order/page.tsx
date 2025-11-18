@@ -1,12 +1,13 @@
 import ProductCard from '@/components/ProductCard';
 import { products } from '@/data/products';
+import Link from 'next/link';
 
 export default function Order() {
   return (
     <div className="min-h-screen relative">
       {/* Simple Home Link */}
       <div className="absolute top-4 left-4 sm:left-8 md:left-25 z-50">
-        <a
+        <Link
           href="/"
           className="inline-flex items-center px-3 py-2 sm:px-4 sm:py-2 bg-black/40 hover:bg-yellow-500/20 backdrop-blur-md rounded-lg border border-yellow-300/20 hover:border-yellow-300/40 text-yellow-300 hover:text-white transition-all duration-300 text-sm sm:text-base touch-target"
         >
@@ -15,7 +16,7 @@ export default function Order() {
           </svg>
           <span className="hidden sm:inline">Home</span>
           <span className="sm:hidden">Back</span>
-        </a>
+        </Link>
       </div>
 
       {/* Background layer */}
