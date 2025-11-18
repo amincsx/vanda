@@ -12,28 +12,28 @@ export default function TestimonialsSection() {
         {
             name: "Sarah Chen",
             role: "Yoga Instructor",
-            image: "/7.PNG",
+            image: "/7.webp",
             text: "My Vanda handpan has become an essential part of my meditation practice. The resonance and clarity are absolutely incredible.",
             rating: 5
         },
         {
             name: "Marcus Thompson",
             role: "Music Therapist",
-            image: "/8.PNG",
+            image: "/8.webp",
             text: "I use Vanda handpans in my therapy sessions. The quality and healing properties of these instruments are unmatched.",
             rating: 5
         },
         {
             name: "Elena Rodriguez",
             role: "Sound Healer",
-            image: "/9.PNG",
+            image: "/9.webp",
             text: "The craftsmanship is extraordinary. Each note resonates with pure emotion and creates the perfect atmosphere for healing.",
             rating: 5
         },
         {
             name: "David Kim",
             role: "Professional Musician",
-            image: "/10.PNG",
+            image: "/10.webp",
             text: "As a touring musician, I need instruments I can rely on. Vanda handpans deliver consistent quality and beautiful tone every time.",
             rating: 5
         }
@@ -142,8 +142,8 @@ export default function TestimonialsSection() {
                                 key={index}
                                 onClick={() => setCurrentTestimonial(index)}
                                 className={`w-3 h-3 rounded-full transition-all duration-300 ${currentTestimonial === index
-                                        ? 'bg-yellow-400 scale-125'
-                                        : 'bg-gray-600 hover:bg-gray-500'
+                                    ? 'bg-yellow-400 scale-125'
+                                    : 'bg-gray-600 hover:bg-gray-500'
                                     }`}
                             />
                         ))}

@@ -49,30 +49,20 @@ export default function TopBgVideo() {
   useEffect(() => {
     const handleVideo = async () => {
       if (videoRef.current) {
-        // Check if this is a fresh visit (new session or refresh) vs navigation
-        const hasNavigatedInSession = sessionStorage.getItem('vanda-has-navigated');
+        try {
+          // Reset video to beginning
+          videoRef.current.currentTime = 0;
 
-        if (!hasNavigatedInSession) {
-          // Fresh visit or refresh - play video
-          sessionStorage.setItem('vanda-has-navigated', 'true');
-
-          try {
-            // Reset video to beginning
-            videoRef.current.currentTime = 0;
-
-            // Try to play the video
-            const playPromise = videoRef.current.play();
-            if (playPromise !== undefined) {
-              await playPromise;
-              console.log("Video started playing for fresh visit/refresh");
-            }
-          } catch (error) {
-            console.error("Video play failed:", error);
+          // Always try to play the video first
+          const playPromise = videoRef.current.play();
+          if (playPromise !== undefined) {
+            await playPromise;
+            console.log("Video started playing");
           }
-        } else {
-          // Navigation within site - show freeze image instead of video
+        } catch (error) {
+          console.error("Video play failed:", error);
+          // If video fails to play, show freeze image as fallback
           setShowFreezeImage(true);
-          console.log("Showing freeze image for navigation");
         }
       }
     };
@@ -136,8 +126,8 @@ export default function TopBgVideo() {
               filter: `blur(${isBlurred ? '8px' : '0px'}) drop-shadow(0 0 40px rgba(0, 0, 0, 0.6))`
             }}
             sizes="100vw"
-            quality={90}
             priority
+            loading="eager"
           />
         )}
 

@@ -57,8 +57,8 @@ export default function WorkshopGallery() {
                                 alt={imageObj.type === 'workshop' ? `Workshop moment ${index + 1}` : `Album image ${index + 1}`}
                                 fill
                                 className="object-cover transition-all duration-700 group-hover:scale-110"
-                                quality={imageObj.type === 'workshop' ? 100 : 85}
                                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                                loading={index < 6 ? 'eager' : 'lazy'}
                             />
 
                             {/* Overlay */}
@@ -100,7 +100,6 @@ export default function WorkshopGallery() {
                                 fill
                                 className="object-contain rounded-lg"
                                 sizes="90vw"
-                                quality={allImages.find(img => img.name === selectedImage)?.type === 'workshop' ? 100 : 85}
                                 priority
                             />
                         </div>

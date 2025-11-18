@@ -30,37 +30,37 @@ export default function BenefitsSection() {
             title: "Stress Relief & Relaxation",
             description: "The soothing tones of handpan music naturally reduce cortisol levels and promote deep relaxation, making it an ideal tool for stress management.",
             icon: "",
-            image: "/1.PNG"
+            image: "/1.webp"
         },
         {
             title: "Enhanced Focus & Meditation",
             description: "The harmonic resonance helps quiet the mind, making it easier to achieve meditative states and improve concentration.",
             icon: "",
-            image: "/2.PNG"
+            image: "/2.webp"
         },
         {
             title: "Emotional Healing",
             description: "Playing handpan can help process emotions, release tension, and provide a therapeutic outlet for self-expression.",
             icon: "",
-            image: "/3.PNG"
+            image: "/3.webp"
         },
         {
             title: "Creative Expression",
             description: "The intuitive nature of handpan encourages spontaneous creativity and musical exploration, regardless of musical background.",
             icon: "",
-            image: "/4.PNG"
+            image: "/4.webp"
         },
         {
             title: "Community & Connection",
             description: "Join a global community of handpan enthusiasts who share the passion for mindful music and conscious living.",
             icon: "",
-            image: "/5.PNG"
+            image: "/5.webp"
         },
         {
             title: "Sleep & Recovery",
             description: "The gentle frequencies can improve sleep quality and aid in physical and mental recovery processes.",
             icon: "",
-            image: "/6.PNG"
+            image: "/6.webp"
         }
     ];
 

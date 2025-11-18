@@ -616,9 +616,9 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
 
             <div className="relative w-full max-w-2xl mx-auto px-4 sm:px-0">
                 {/* Background image */}
-                <div className="relative w-full aspect-square max-h-[400px] sm:max-h-[550px]">
+                <div className="relative w-full aspect-square max-h-[400px] sm:max-h-[550px] transform -translate-y-8 sm:-translate-y-12">
                     <Image
-                        src={productId === 1 ? `/D kord 9 note/D KORD 9 NOTE.png` :
+                        src={productId === 1 ? `/D kord 9 note/D KORD 9 NOTE.webp` :
                             productId === 2 ? `/D kurd 14 note/D kurd 14 note.webp` :
                                 productId === 3 ? `/galaxy D kurd 9 note/galaxy D kurd 9 note.webp` :
                                     productId === 4 ? `/steel D kurd 12 note/steel d kurd 12 note.webp` :
@@ -630,6 +630,7 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                                         "Handpan F Major Layout"}
                         fill
                         className="object-contain rounded-lg"
+                        style={{ objectPosition: 'center top' }}
                     />
 
                     {/* Interactive SVG overlay */}

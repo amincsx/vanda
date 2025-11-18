@@ -190,8 +190,8 @@ export default function HorizontalAlbum() {
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 300px, 600px"
-                quality={85}
-                priority={index < 3}
+                priority={index < 2}
+                loading={index < 2 ? 'eager' : 'lazy'}
               />
             </div>
           ))}

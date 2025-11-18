@@ -215,8 +215,8 @@ export default function Home() {
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 600px"
-                        quality={85}
                         priority={index === 0}
+                        loading={index === 0 ? 'eager' : 'lazy'}
                       />
                     </div>
                   ))}
@@ -253,7 +253,7 @@ export default function Home() {
       <div className="h-20 bg-black md:hidden"></div>
 
       {/* New Sections for Extended Content - Desktop Only */}
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <AboutSection />
 
         <div className="h-8 bg-black"></div>
@@ -265,7 +265,7 @@ export default function Home() {
 
       {/* Mobile Sections */}
       {isMobile && (
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <AboutSection />
           <CraftsmanshipSection />
           <BenefitsSection />
