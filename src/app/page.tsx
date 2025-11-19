@@ -243,8 +243,8 @@ export default function Home() {
         </div>
       )}
 
-      {/* Spacer to separate main content from new sections */}
-      <div className="h-80 bg-black hidden md:block"></div>
+      {/* Spacer to separate main content from new sections - increased for large screens */}
+      <div className="h-80 xl:h-96 2xl:h-[28rem] bg-black hidden md:block"></div>
       <div className="h-20 bg-black md:hidden"></div>
 
       {/* New Sections for Extended Content - Desktop Only */}

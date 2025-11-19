@@ -8,6 +8,7 @@ export default function HorizontalAlbum() {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [viewportWidth, setViewportWidth] = useState(0);
+  const [viewportHeight, setViewportHeight] = useState(0);
   const isMobile = viewportWidth < 768;
 
   // Reduced images for faster initial loading (show first 8 images)
@@ -28,12 +29,14 @@ export default function HorizontalAlbum() {
   ];
 
   useEffect(() => {
-    // Set initial viewport width
+    // Set initial viewport dimensions
     setViewportWidth(window.innerWidth);
+    setViewportHeight(window.innerHeight);
 
     // Handle window resize
     const handleResize = () => {
       setViewportWidth(window.innerWidth);
+      setViewportHeight(window.innerHeight);
     };
 
     window.addEventListener('resize', handleResize);
@@ -130,11 +133,29 @@ export default function HorizontalAlbum() {
     <>
       {/* Ultra-light Album Section - Only scroll movement and borders */}
       <div
-        className={`absolute left-0 right-0 z-30 transition-all duration-1000 ease-in-out overflow-visible ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full'
+        className={`absolute left-0 right-0 z-20 transition-all duration-1000 ease-in-out overflow-visible ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full'
           }`}
         style={{
           height: isMobile ? '160px' : '280px',
-          top: 'calc(120vh - 40px)'
+          // Smart positioning based on viewport dimensions to prevent overlap
+          top: (() => {
+            // Calculate dynamic positioning based on both width and height
+            const baseOffset = Math.min(viewportHeight * 0.1, 100); // Reduced offset
+
+            if (viewportWidth >= 3840) {
+              // 4K+ screens: position slightly lower
+              return `calc(80vh - ${baseOffset}px)`;
+            } else if (viewportWidth >= 2560) {
+              // 1440p+ screens: adjust positioning
+              return `calc(90vh - ${Math.min(baseOffset, 60)}px)`;
+            } else if (viewportWidth >= 1920) {
+              // 1080p+ screens: fine-tune position
+              return `calc(100vh - 50px)`;
+            } else {
+              // Standard screens
+              return `calc(120vh - 40px)`;
+            }
+          })()
         }}
       >
         {/* Glass borders for top and bottom */}
