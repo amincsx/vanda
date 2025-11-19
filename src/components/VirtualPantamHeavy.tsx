@@ -616,7 +616,7 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
 
             <div className="relative w-full max-w-2xl mx-auto px-4 sm:px-0">
                 {/* Background image */}
-                <div className="relative w-full aspect-square max-h-[400px] sm:max-h-[550px] transform -translate-y-8 sm:-translate-y-12">
+                <div className="relative w-full aspect-square max-h-[500px] sm:max-h-[550px] transform -translate-y-4 sm:-translate-y-12">
                     <Image
                         src={productId === 1 ? `/D kord 9 note/D KORD 9 NOTE.webp` :
                             productId === 2 ? `/D kurd 14 note/D kurd 14 note.webp` :

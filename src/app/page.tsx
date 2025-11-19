@@ -23,7 +23,7 @@ const BenefitsSection = dynamic(() => import("../components/BenefitsSection"), {
 export default function Home() {
   const [isTextVisible, setIsTextVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [mobileProgress, setMobileProgress] = useState(0);
 
   // Array of images for mobile album (optimized for faster loading)
   const images = [
@@ -58,32 +58,34 @@ export default function Home() {
 
   // Mobile album scroll handler
   useEffect(() => {
-    const handleScroll = () => {
-      if (!isMobile) return;
+    // Smooth mobile album carousel like desktop version
+    if (!isMobile) return;
 
-      const scrollTop = window.scrollY;
+    let animationFrameId: number | null = null;
+    let startTime: number | null = null;
+    const duration = 15000; // 15 seconds for full cycle (faster than desktop)
 
-      // Change image every 150px of scroll
-      const imageIndex = Math.floor(scrollTop / 150) % images.length;
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
 
-      setCurrentImageIndex(imageIndex);
+      // Calculate smooth progress (0 to 1 continuously)
+      const cycle = (elapsed % duration) / duration;
+      const progress = Math.sin(cycle * Math.PI * 2) * 0.5 + 0.5; // Smooth sine wave
+
+      setMobileProgress(progress);
+
+      animationFrameId = requestAnimationFrame(animate);
     };
 
-    // Throttle scroll events for smoother performance
-    let ticking = false;
-    const throttledHandleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
       }
     };
-
-    window.addEventListener('scroll', throttledHandleScroll);
-    return () => window.removeEventListener('scroll', throttledHandleScroll);
-  }, [isMobile, images.length]);
+  }, [isMobile]);
 
   return (
     <div className="relative overflow-x-hidden w-full" style={{ minHeight: isMobile ? '100vh' : 'calc(100vh + 2500px)' }}>
@@ -192,17 +194,21 @@ export default function Home() {
               <div className="relative w-full h-32 rounded-none overflow-hidden">
                 {/* All images container - slides horizontally */}
                 <div
-                  className="flex transition-transform duration-[1500ms] ease-in-out h-full"
+                  className="flex h-full"
                   style={{
-                    width: `${images.length * 100}%`,
-                    transform: `translateX(-${currentImageIndex * (100 / images.length)}%)`
+                    width: `${images.length * 300}px`,
+                    transform: `translate3d(${mobileProgress * Math.min(0, window.innerWidth - images.length * 300) * 0.3}px, 0, 0)`,
+                    willChange: 'transform'
                   }}
                 >
                   {images.map((image, index) => (
                     <div
                       key={index}
                       className="flex-shrink-0 h-full relative"
-                      style={{ width: `${100 / images.length}%` }}
+                      style={{
+                        width: '300px',
+                        marginLeft: index > 0 ? '-2px' : '0px'
+                      }}
                     >
                       <Image
                         src={image}

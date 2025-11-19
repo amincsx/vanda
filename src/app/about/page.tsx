@@ -81,7 +81,7 @@ export default function About() {
               </div>
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
                 <Image
-                  src="/workshop pics/IMG_3787.PNG"
+                  src="/workshop pics/IMG_3790.PNG"
                   alt="Handpan detail"
                   fill
                   className="object-cover"

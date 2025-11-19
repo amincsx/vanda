@@ -54,7 +54,7 @@ export default function HorizontalAlbum() {
       // Not first visit - show album immediately
       setIsVisible(true);
     } else {
-      // First visit - show album after 500ms (faster than before)
+      // First visit - show album after 500ms
       const timer = setTimeout(() => {
         setIsVisible(true);
       }, 500);
@@ -64,70 +64,35 @@ export default function HorizontalAlbum() {
   }, []);
 
   useEffect(() => {
+    // Automatic looping animation instead of scroll-based
     let animationFrameId: number | null = null;
-    let currentProgress = 0;
-    let targetProgress = 0;
-    let isAnimating = false;
-    let lastScrollTime = 0;
+    let startTime: number | null = null;
+    const duration = 20000; // 20 seconds for full cycle
 
-    const handleScroll = () => {
-      const now = Date.now();
-      // Throttle scroll events to 60fps max
-      if (now - lastScrollTime < 16) return;
-      lastScrollTime = now;
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
 
-      const scrollTop = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
+      // Calculate progress (0 to 1 and back)
+      const cycle = (elapsed % duration) / duration;
+      const progress = Math.sin(cycle * Math.PI * 2) * 0.5 + 0.5; // Smooth sine wave
 
-      // Calculate scroll progress more accurately
-      const maxScroll = documentHeight - windowHeight;
-      const rawProgress = Math.min(Math.max(scrollTop / maxScroll, 0), 1);
+      setScrollProgress(progress);
 
-      // Use more direct progress for better accuracy
-      targetProgress = rawProgress;
-
-      // Start animation if not already running
-      if (!isAnimating) {
-        startAnimation();
-      }
+      animationFrameId = requestAnimationFrame(animate);
     };
 
-    const startAnimation = () => {
-      if (isAnimating) return;
-      isAnimating = true;
-      animate();
-    };
-
-    const animate = () => {
-      // Smooth interpolation between current and target progress
-      const diff = targetProgress - currentProgress;
-      const damping = 0.15; // Increased for faster response
-
-      currentProgress += diff * damping;
-      setScrollProgress(currentProgress);
-
-      // Continue animating if there's still significant difference
-      if (Math.abs(diff) > 0.005) { // Increased threshold for less precision but better performance
-        animationFrameId = requestAnimationFrame(animate);
-      } else {
-        // Snap to final position for precision
-        currentProgress = targetProgress;
-        setScrollProgress(currentProgress);
-        isAnimating = false;
-        animationFrameId = null;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Start animation when visible
+    if (isVisible) {
+      animationFrameId = requestAnimationFrame(animate);
+    }
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, []);
+  }, [isVisible]);
 
   return (
     <>

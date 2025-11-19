@@ -77,22 +77,22 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        
+
         {/* Favicon and Icons */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.webp" type="image/webp" />
         <link rel="shortcut icon" href="/icon.webp" type="image/webp" />
         <link rel="apple-touch-icon" href="/icon.webp" />
         <link rel="apple-touch-icon-precomposed" href="/icon.webp" />
-        
+
         {/* PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
-        
+
         {/* Theme colors */}
         <meta name="theme-color" content="#FFD700" />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="msapplication-TileImage" content="/icon.webp" />
-        
+
         {/* Fonts */}
         <link
           href="https://fonts.googleapis.com/css2?family=Waterfall&display=swap"
