@@ -46,12 +46,7 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                 '_1.E4': '5.E4',
                 '_1.F4': '6.F4',
                 '_1.G4': '7.G4',
-                '_1.A4': '8.A4',
-                '_1.C5': '9.C5',
-                '_1.D5': '10.D5',
-                '_1.E5': '11.E5',
-                '_1.F5': '12.F5',
-                '_1.A5': '13.A5'
+                '_1.A4': '8.A4'
             }
         },
         3: {
@@ -65,7 +60,10 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                 '_1.E4': '5.E4',
                 '_1.F4': '6.F4',
                 '_1.G4': '7.G4',
-                '_1.A4': '8.A4'
+                '_1.A4': '8.A4',
+                '_1.C5': '9.C5',
+                '_1.D5': '10.D5',
+                '_1.E5': '11.E5'
             }
         },
         4: {
@@ -82,7 +80,9 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                 '_1.A4': '8.A4',
                 '_1.C5': '9.C5',
                 '_1.D5': '10.D5',
-                '_1.E5': '11.E5'
+                '_1.E5': '11.E5',
+                '_1.F5': '12.F5',
+                '_1.A5': '13.A5'
             }
         },
         6: {
@@ -259,8 +259,8 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
     };
 
     // Note display order - different for each product
-    const noteButtons = (productId === 1 || productId === 3) ? [
-        // Product 1 & 3: 9 notes
+    const noteButtons = (productId === 1 || productId === 2) ? [
+        // Product 1 & 2: 9 notes
         { id: '_0.D_ding', label: 'D3', key: 'a' },
         { id: '_1.A3', label: 'A3', key: 's' },
         { id: '_1.Bb3', label: 'Bb3', key: 'd' },
@@ -270,8 +270,8 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
         { id: '_1.F4', label: 'F4', key: 'j' },
         { id: '_1.G4', label: 'G4', key: 'k' },
         { id: '_1.A4', label: 'A4', key: 'l' }
-    ] : productId === 2 ? [
-        // Product 2: 14 notes
+    ] : productId === 4 ? [
+        // Product 4: 14 notes
         { id: '_0.D_ding', label: 'D3', key: 'a' },
         { id: '_1.A3', label: 'A3', key: 's' },
         { id: '_1.Bb3', label: 'Bb3', key: 'd' },
@@ -287,7 +287,7 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
         { id: '_1.F5', label: 'F5', key: 'v' },
         { id: '_1.A5', label: 'A5', key: 'b' }
     ] : [
-        // Product 4 & 6: 12 notes
+        // Product 3 & 6: 12 notes
         { id: '_0.D_ding', label: 'D3', key: 'a' },
         { id: '_1.A3', label: 'A3', key: 's' },
         { id: '_1.Bb3', label: 'Bb3', key: 'd' },
@@ -322,8 +322,8 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
 
         const handleKeyPress = (event: KeyboardEvent) => {
             const key = event.key.toLowerCase();
-            const noteMap: { [key: string]: string } = (productId === 1 || productId === 3) ? {
-                // Product 1 & 3: 9 notes
+            const noteMap: { [key: string]: string } = (productId === 1 || productId === 2) ? {
+                // Product 1 & 2: 9 notes
                 'a': '_0.D_ding',
                 's': '_1.A3',
                 'd': '_1.Bb3',
@@ -333,8 +333,8 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                 'j': '_1.F4',
                 'k': '_1.G4',
                 'l': '_1.A4'
-            } : productId === 2 ? {
-                // Product 2: 14 notes
+            } : productId === 4 ? {
+                // Product 4: 14 notes
                 'a': '_0.D_ding',
                 's': '_1.A3',
                 'd': '_1.Bb3',
@@ -349,8 +349,8 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                 'c': '_1.E5',
                 'v': '_1.F5',
                 'b': '_1.A5'
-            } : (productId === 4 || productId === 6) ? {
-                // Product 4 & 6: 12 notes
+            } : (productId === 3 || productId === 6) ? {
+                // Product 3 & 6: 12 notes
                 'a': '_0.D_ding',
                 's': '_1.A3',
                 'd': '_1.Bb3',
@@ -384,9 +384,9 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                         <div className="flex justify-between items-start mb-6">
                             <h3 className="text-2xl font-bold text-white">
                                 {productId === 1 ? 'About D Kurd Scale' :
-                                    productId === 2 ? 'About C Major Scale' :
-                                        productId === 3 ? 'About A Minor Galaxy Scale' :
-                                            productId === 4 ? 'About G Major Scale' :
+                                    productId === 2 ? 'About D Kurd Scale' :
+                                        productId === 3 ? 'About D Minor 12 Note Scale' :
+                                            productId === 4 ? 'About D Minor 14 Note Scale' :
                                                 'About F Major Scale'}
                             </h3>
                             <button
@@ -619,14 +619,14 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                 <div className="relative w-full aspect-square max-h-[500px] sm:max-h-[550px] transform -translate-y-4 sm:-translate-y-12">
                     <Image
                         src={productId === 1 ? `/D kord 9 note/D KORD 9 NOTE.webp` :
-                            productId === 2 ? `/D kurd 14 note/D kurd 14 note.webp` :
-                                productId === 3 ? `/galaxy D kurd 9 note/galaxy D kurd 9 note.webp` :
-                                    productId === 4 ? `/steel D kurd 12 note/steel d kurd 12 note.webp` :
+                            productId === 2 ? `/D kord 9 note/D KORD 9 NOTE.webp` :
+                                productId === 3 ? `/black D kurd 12 note/black D kurd 12 note.webp` :
+                                    productId === 4 ? `/D kurd 14 note/D kurd 14 note.webp` :
                                         `/black D kurd 12 note/black D kurd 12 note.webp`}
                         alt={productId === 1 ? "Handpan D Minor Layout" :
-                            productId === 2 ? "Handpan C Major Layout" :
-                                productId === 3 ? "Handpan A Minor Layout" :
-                                    productId === 4 ? "Handpan G Major Layout" :
+                            productId === 2 ? "Handpan D Minor Echo Layout" :
+                                productId === 3 ? "Handpan D Minor 12 Note Layout" :
+                                    productId === 4 ? "Handpan D Minor 14 Note Layout" :
                                         "Handpan F Major Layout"}
                         fill
                         className="object-contain rounded-lg"
@@ -782,14 +782,14 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                                 </>
                             ) : productId === 3 ? (
                                 <>
-                                    {/* Product 3: A Minor Galaxy 9 notes */}
+                                    {/* Product 3: Black D Minor 12 notes */}
                                     <ellipse
                                         id="_0.D_ding"
-                                        cx="557.81"
-                                        cy="584.67"
-                                        rx="125.94"
-                                        ry="160.43"
-                                        transform="translate(-47.11 1120.46) rotate(-87.88)"
+                                        cx="585.4"
+                                        cy="604.45"
+                                        rx="135.91"
+                                        ry="167.51"
+                                        transform="translate(-40.3 1167.08) rotate(-87.88)"
                                         onClick={() => playNote('_0.D_ding')}
                                         className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_0.D_ding' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
                                             }`}
@@ -797,9 +797,189 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                                     />
                                     <ellipse
                                         id="_1.A3"
-                                        cx="579.29"
-                                        cy="872.07"
-                                        rx="86.49"
+                                        cx="585.4"
+                                        cy="873.89"
+                                        rx="97.62"
+                                        ry="73.43"
+                                        onClick={() => playNote('_1.A3')}
+                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.A3' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
+                                            }`}
+                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
+                                    />
+                                    <ellipse
+                                        id="_1.Bb3"
+                                        cx="343.18"
+                                        cy="784.8"
+                                        rx="80.7"
+                                        ry="96.14"
+                                        transform="translate(-495.61 611.29) rotate(-54.69)"
+                                        onClick={() => playNote('_1.Bb3')}
+                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.Bb3' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
+                                            }`}
+                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
+                                    />
+                                    <ellipse
+                                        id="_1.C4"
+                                        cx="814.84"
+                                        cy="759.68"
+                                        rx="79.33"
+                                        ry="68.03"
+                                        transform="translate(-282.5 951.82) rotate(-52.93)"
+                                        onClick={() => playNote('_1.C4')}
+                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.C4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
+                                            }`}
+                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
+                                    />
+                                    <ellipse
+                                        id="_1.D4"
+                                        cx="246.76"
+                                        cy="578.19"
+                                        rx="72.52"
+                                        ry="79.24"
+                                        onClick={() => playNote('_1.D4')}
+                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.D4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
+                                            }`}
+                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
+                                    />
+                                    <ellipse
+                                        id="_1.E4"
+                                        cx="878.58"
+                                        cy="576.65"
+                                        rx="63.05"
+                                        ry="80.78"
+                                        onClick={() => playNote('_1.E4')}
+                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.E4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
+                                            }`}
+                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
+                                    />
+                                    <ellipse
+                                        id="_1.F4"
+                                        cx="304.25"
+                                        cy="385.56"
+                                        rx="72.13"
+                                        ry="60.42"
+                                        transform="translate(-186.44 364.35) rotate(-49.25)"
+                                        onClick={() => playNote('_1.F4')}
+                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.F4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
+                                            }`}
+                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
+                                    />
+                                    <ellipse
+                                        id="_1.G4"
+                                        cx="817.38"
+                                        cy="374.39"
+                                        rx="63.66"
+                                        ry="60.82"
+                                        transform="translate(412.99 1177.36) rotate(-87.88)"
+                                        onClick={() => playNote('_1.G4')}
+                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.G4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
+                                            }`}
+                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
+                                    />
+                                    <ellipse
+                                        id="_1.A4"
+                                        cx="456.8"
+                                        cy="250.92"
+                                        rx="59.31"
+                                        ry="41.35"
+                                        onClick={() => playNote('_1.A4')}
+                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.A4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
+                                            }`}
+                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
+                                    />
+                                    <ellipse
+                                        id="_1.C5"
+                                        cx="668.31"
+                                        cy="249.69"
+                                        rx="42.65"
+                                        ry="60.69"
+                                        transform="translate(394.06 908.31) rotate(-87.88)"
+                                        onClick={() => playNote('_1.C5')}
+                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.C5' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
+                                            }`}
+                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
+                                    />
+                                    <ellipse
+                                        id="_1.D5"
+                                        cx="485.56"
+                                        cy="383.47"
+                                        rx="54.52"
+                                        ry="54.52"
+                                        onClick={() => playNote('_1.D5')}
+                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.D5' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
+                                            }`}
+                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
+                                    />
+                                    <ellipse
+                                        id="_1.E5"
+                                        cx="656.88"
+                                        cy="386.98"
+                                        rx="51.07"
+                                        ry="55.82"
+                                        onClick={() => playNote('_1.E5')}
+                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.E5' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
+                                            }`}
+                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
+                                    />
+
+                                    {/* Note labels for Product 3 */}
+                                    <text x="585.4" y="610" textAnchor="middle" className="fill-white text-lg font-bold pointer-events-none select-none">
+                                        D3
+                                    </text>
+                                    <text x="814.84" y="765" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                        C4
+                                    </text>
+                                    <text x="668.31" y="255" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                        C5
+                                    </text>
+                                    <text x="343.18" y="790" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                        Bb3
+                                    </text>
+                                    <text x="246.76" y="584" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                        D4
+                                    </text>
+                                    <text x="485.56" y="390" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                        D5
+                                    </text>
+                                    <text x="304.25" y="391" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                        F4
+                                    </text>
+                                    <text x="817.38" y="380" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                        G4
+                                    </text>
+                                    <text x="878.58" y="583" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                        E4
+                                    </text>
+                                    <text x="585.4" y="880" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                        A3
+                                    </text>
+                                    <text x="456.8" y="257" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                        A4
+                                    </text>
+                                    <text x="656.88" y="393" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                        E5
+                                    </text>
+                                </>
+                            ) : productId === 2 ? (
+                                <>
+                                    {/* Product 2: D Minor 9 notes Echo */}
+                                    <ellipse
+                                        id="_0.D_ding"
+                                        cx="567.29"
+                                        cy="579.39"
+                                        rx="113.32"
+                                        ry="149.16"
+                                        transform="translate(-32.7 1124.85) rotate(-87.88)"
+                                        onClick={() => playNote('_0.D_ding')}
+                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_0.D_ding' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
+                                            }`}
+                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
+                                    />
+                                    <ellipse
+                                        id="_1.A3"
+                                        cx="593.02"
+                                        cy="876.81"
+                                        rx="97.62"
                                         ry="83.82"
                                         onClick={() => playNote('_1.A3')}
                                         className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.A3' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
@@ -808,11 +988,11 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                                     />
                                     <ellipse
                                         id="_1.Bb3"
-                                        cx="331.43"
-                                        cy="766.85"
+                                        cx="318.95"
+                                        cy="771.75"
                                         rx="92.37"
                                         ry="104.18"
-                                        transform="translate(-485.92 594.12) rotate(-54.69)"
+                                        transform="translate(-495.2 586) rotate(-54.69)"
                                         onClick={() => playNote('_1.Bb3')}
                                         className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.Bb3' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
                                             }`}
@@ -820,11 +1000,11 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                                     />
                                     <ellipse
                                         id="_1.C4"
-                                        cx="822.05"
-                                        cy="749.14"
+                                        cx="825.94"
+                                        cy="743.77"
                                         rx="82.54"
-                                        ry="62.34"
-                                        transform="translate(-264.4 987.03) rotate(-54.69)"
+                                        ry="64.43"
+                                        transform="translate(-258.38 987.94) rotate(-54.69)"
                                         onClick={() => playNote('_1.C4')}
                                         className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.C4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
                                             }`}
@@ -832,11 +1012,10 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                                     />
                                     <ellipse
                                         id="_1.D4"
-                                        cx="243.6"
-                                        cy="536.98"
-                                        rx="78.41"
-                                        ry="70.55"
-                                        transform="translate(-311.08 737.04) rotate(-85.43)"
+                                        cx="226.58"
+                                        cy="528.07"
+                                        rx="79.53"
+                                        ry="90.22"
                                         onClick={() => playNote('_1.D4')}
                                         className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.D4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
                                             }`}
@@ -844,8 +1023,8 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                                     />
                                     <ellipse
                                         id="_1.E4"
-                                        cx="860.05"
-                                        cy="523.01"
+                                        cx="876.4"
+                                        cy="511.08"
                                         rx="67.49"
                                         ry="83.82"
                                         onClick={() => playNote('_1.E4')}
@@ -855,11 +1034,11 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                                     />
                                     <ellipse
                                         id="_1.F4"
-                                        cx="360.66"
-                                        cy="338.81"
+                                        cx="344.37"
+                                        cy="302.93"
                                         rx="80.35"
                                         ry="74.05"
-                                        transform="translate(-131.44 390.85) rotate(-49.25)"
+                                        transform="translate(-109.91 366.06) rotate(-49.25)"
                                         onClick={() => playNote('_1.F4')}
                                         className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.F4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
                                             }`}
@@ -867,11 +1046,11 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                                     />
                                     <ellipse
                                         id="_1.G4"
-                                        cx="758.06"
-                                        cy="347.93"
-                                        rx="71.17"
-                                        ry="74.19"
-                                        transform="translate(382.32 1092.6) rotate(-87.88)"
+                                        cx="772.58"
+                                        cy="316.47"
+                                        rx="70.27"
+                                        ry="65.35"
+                                        transform="translate(427.73 1076.81) rotate(-87.88)"
                                         onClick={() => playNote('_1.G4')}
                                         className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.G4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
                                             }`}
@@ -879,48 +1058,48 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                                     />
                                     <ellipse
                                         id="_1.A4"
-                                        cx="565.07"
-                                        cy="261.08"
+                                        cx="553.37"
+                                        cy="237.87"
                                         rx="63.5"
-                                        ry="56.57"
+                                        ry="70.24"
                                         onClick={() => playNote('_1.A4')}
                                         className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.A4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
                                             }`}
                                         style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
                                     />
 
-                                    {/* Note labels for Product 3 */}
-                                    <text x="557.81" y="590" textAnchor="middle" className="fill-white text-lg font-bold pointer-events-none select-none">
+                                    {/* Note labels for Product 2 */}
+                                    <text x="567.29" y="585" textAnchor="middle" className="fill-white text-lg font-bold pointer-events-none select-none">
                                         D3
                                     </text>
-                                    <text x="822.05" y="756" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                    <text x="825.94" y="750" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
                                         C4
                                     </text>
-                                    <text x="331.43" y="775" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                    <text x="318.95" y="778" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
                                         Bb3
                                     </text>
-                                    <text x="243.6" y="545" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                    <text x="226.58" y="535" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
                                         D4
                                     </text>
-                                    <text x="360.66" y="347" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                    <text x="344.37" y="310" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
                                         F4
                                     </text>
-                                    <text x="758.06" y="356" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                    <text x="772.58" y="323" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
                                         G4
                                     </text>
-                                    <text x="860.05" y="531" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                    <text x="876.4" y="518" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
                                         E4
                                     </text>
-                                    <text x="579.29" y="880" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                    <text x="593.02" y="884" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
                                         A3
                                     </text>
-                                    <text x="565.07" y="269" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
+                                    <text x="553.37" y="245" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
                                         A4
                                     </text>
                                 </>
-                            ) : productId === 2 ? (
+                            ) : productId === 4 ? (
                                 <>
-                                    {/* Product 2: C Major 14 notes */}
+                                    {/* Product 4: D Minor 14 notes */}
                                     <ellipse
                                         id="_0.D_ding"
                                         cx="542.07"
@@ -1026,7 +1205,6 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                                             }`}
                                         style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
                                     />
-                                    {/* Additional notes for 14-note handpan */}
                                     <ellipse
                                         id="_1.C5"
                                         cx="712.41"
@@ -1084,7 +1262,7 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                                         style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
                                     />
 
-                                    {/* Note labels for Product 2 */}
+                                    {/* Note labels for Product 4 */}
                                     <text x="542.07" y="610" textAnchor="middle" className="fill-white text-lg font-bold pointer-events-none select-none">
                                         D3
                                     </text>
@@ -1126,185 +1304,6 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
                                     </text>
                                     <text x="553.47" y="350" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
                                         A5
-                                    </text>
-                                </>
-                            ) : productId === 4 ? (
-                                <>
-                                    {/* Product 4: G Major Steel 12 notes */}
-                                    <ellipse
-                                        id="_0.D_ding"
-                                        cx="552.75"
-                                        cy="608.59"
-                                        rx="135.91"
-                                        ry="167.51"
-                                        transform="translate(-75.88 1138.44) rotate(-87.88)"
-                                        onClick={() => playNote('_0.D_ding')}
-                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_0.D_ding' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
-                                            }`}
-                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
-                                    />
-                                    <ellipse
-                                        id="_1.A3"
-                                        cx="557.16"
-                                        cy="876.7"
-                                        rx="97.62"
-                                        ry="76.76"
-                                        onClick={() => playNote('_1.A3')}
-                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.A3' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
-                                            }`}
-                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
-                                    />
-                                    <ellipse
-                                        id="_1.Bb3"
-                                        cx="307.33"
-                                        cy="762.6"
-                                        rx="80.7"
-                                        ry="104.18"
-                                        transform="translate(-492.63 572.66) rotate(-54.69)"
-                                        onClick={() => playNote('_1.Bb3')}
-                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.Bb3' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
-                                            }`}
-                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
-                                    />
-                                    <ellipse
-                                        id="_1.C4"
-                                        cx="780.8"
-                                        cy="777.82"
-                                        rx="79.33"
-                                        ry="71.2"
-                                        transform="translate(-305.22 965.48) rotate(-54.69)"
-                                        onClick={() => playNote('_1.C4')}
-                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.C4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
-                                            }`}
-                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
-                                    />
-                                    <ellipse
-                                        id="_1.D4"
-                                        cx="229.21"
-                                        cy="555.61"
-                                        rx="72.52"
-                                        ry="84.21"
-                                        onClick={() => playNote('_1.D4')}
-                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.D4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
-                                            }`}
-                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
-                                    />
-                                    <ellipse
-                                        id="_1.E4"
-                                        cx="863.74"
-                                        cy="575.44"
-                                        rx="67.49"
-                                        ry="83.82"
-                                        onClick={() => playNote('_1.E4')}
-                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.E4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
-                                            }`}
-                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
-                                    />
-                                    <ellipse
-                                        id="_1.F4"
-                                        cx="298.18"
-                                        cy="356.7"
-                                        rx="72.13"
-                                        ry="60.42"
-                                        transform="translate(-166.68 349.73) rotate(-49.25)"
-                                        onClick={() => playNote('_1.F4')}
-                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.F4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
-                                            }`}
-                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
-                                    />
-                                    <ellipse
-                                        id="_1.G4"
-                                        cx="810.09"
-                                        cy="386.31"
-                                        rx="63.74"
-                                        ry="63.74"
-                                        onClick={() => playNote('_1.G4')}
-                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.G4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
-                                            }`}
-                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
-                                    />
-                                    <ellipse
-                                        id="_1.A4"
-                                        cx="459.54"
-                                        cy="244.81"
-                                        rx="73.92"
-                                        ry="53.55"
-                                        onClick={() => playNote('_1.A4')}
-                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.A4' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
-                                            }`}
-                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
-                                    />
-                                    <ellipse
-                                        id="_1.C5"
-                                        cx="666.25"
-                                        cy="255.06"
-                                        rx="54.82"
-                                        ry="58.04"
-                                        transform="translate(386.71 911.42) rotate(-87.88)"
-                                        onClick={() => playNote('_1.C5')}
-                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.C5' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
-                                            }`}
-                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
-                                    />
-                                    <ellipse
-                                        id="_1.D5"
-                                        cx="466.28"
-                                        cy="392.74"
-                                        rx="54.52"
-                                        ry="60.63"
-                                        onClick={() => playNote('_1.D5')}
-                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.D5' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
-                                            }`}
-                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
-                                    />
-                                    <ellipse
-                                        id="_1.E5"
-                                        cx="650.03"
-                                        cy="395.48"
-                                        rx="51.07"
-                                        ry="57.24"
-                                        onClick={() => playNote('_1.E5')}
-                                        className={`fill-white/10 stroke-white/80 stroke-[3] hover:stroke-white hover:fill-white/25 transition-all duration-150 cursor-pointer backdrop-blur-sm ${activeNote === '_1.E5' ? 'stroke-white stroke-[5] fill-white/50 drop-shadow-[0_0_20px_rgba(255,255,255,1)]' : ''
-                                            }`}
-                                        style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
-                                    />
-
-                                    {/* Note labels for Product 4 */}
-                                    <text x="552.75" y="615" textAnchor="middle" className="fill-white text-lg font-bold pointer-events-none select-none">
-                                        D3
-                                    </text>
-                                    <text x="780.8" y="784" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
-                                        C4
-                                    </text>
-                                    <text x="666.25" y="261" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
-                                        C5
-                                    </text>
-                                    <text x="307.33" y="769" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
-                                        Bb3
-                                    </text>
-                                    <text x="229.21" y="562" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
-                                        D4
-                                    </text>
-                                    <text x="466.28" y="399" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
-                                        D5
-                                    </text>
-                                    <text x="298.18" y="363" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
-                                        F4
-                                    </text>
-                                    <text x="810.09" y="393" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
-                                        G4
-                                    </text>
-                                    <text x="863.74" y="582" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
-                                        E4
-                                    </text>
-                                    <text x="650.03" y="402" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
-                                        E5
-                                    </text>
-                                    <text x="557.16" y="884" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
-                                        A3
-                                    </text>
-                                    <text x="459.54" y="251" textAnchor="middle" className="fill-white text-sm font-bold pointer-events-none select-none">
-                                        A4
                                     </text>
                                 </>
                             ) : productId === 6 ? (

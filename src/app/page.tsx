@@ -89,6 +89,35 @@ export default function Home() {
 
   return (
     <div className="relative overflow-x-hidden w-full" style={{ minHeight: isMobile ? '100vh' : 'calc(100vh + 2500px)' }}>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Vanda Handpan",
+            "description": "Premium handmade handpan instruments crafted with precision and passion",
+            "url": "https://vanda-handpan.com",
+            "telephone": "+989196075854",
+            "image": "https://vanda-handpan.com/icon.webp",
+            "priceRange": "$$",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "IR"
+            },
+            "sameAs": [
+              "https://www.instagram.com/vanda_pantam/",
+              "https://wa.me/989196075854"
+            ],
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "5",
+              "reviewCount": "1"
+            }
+          })
+        }}
+      />
       <Navigation />
       <VandaLogo />
       {/* Background layer */}

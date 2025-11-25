@@ -6,8 +6,9 @@ import VirtualPantam from '@/components/VirtualPantam';
 import { products } from '@/data/products';
 
 export default function VirtualPantamPage() {
-  // Products with virtual pantam functionality: 1, 2, 3, 4, 6
-  const virtualPantamProducts = [1, 2, 3, 4, 6];
+  // Currently available virtual pantams: 1 (9-note), 3 (12-note), 4 (14-note)
+  // Product 2 (Echo) and 5 (18-note) temporarily disabled
+  const virtualPantamProducts = [1, 3, 4];
   const [selectedProductId, setSelectedProductId] = useState(4); // Default to product 4
 
   const availableProducts = products.filter(p => virtualPantamProducts.includes(p.id));

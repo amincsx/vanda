@@ -1,0 +1,156 @@
+// Quick fix script - copy these changes manually to VirtualPantamHeavy.tsx
+
+// CHANGE 1: Product 2 configuration (around line 38-56)
+// Replace the 14-note config with 9-note config:
+2: {
+    // Product 2: 9 note D Minor Echo - same as Product 1
+    audioPath: '/sounds',
+    notes: {
+        '_0.D_ding': '0.D 3',
+        '_1.A3': '1.A3',
+        '_1.Bb3': '2.Bb3',
+        '_1.C4': '3.C4',
+        '_1.D4': '4.D4',
+        '_1.E4': '5.E4',
+        '_1.F4': '6.F4',
+        '_1.G4': '7.G4',
+        '_1.A4': '8.A4'
+    }
+},
+
+// CHANGE 2: Product 3 configuration (around line 57-70)
+// Replace the 9-note config with 12-note config:
+3: {
+    // Product 3: 12 note Black D Minor
+    audioPath: '/sounds',
+    notes: {
+        '_0.D_ding': '0.D 3',
+        '_1.A3': '1.A3',
+        '_1.Bb3': '2.Bb3',
+        '_1.C4': '3.C4',
+        '_1.D4': '4.D4',
+        '_1.E4': '5.E4',
+        '_1.F4': '6.F4',
+        '_1.G4': '7.G4',
+        '_1.A4': '8.A4',
+        '_1.C5': '9.C5',
+        '_1.D5': '10.D5',
+        '_1.E5': '11.E5'
+    }
+},
+
+// CHANGE 3: Product 4 configuration (around line 71-87)
+// Replace the 12-note config with 14-note config:
+4: {
+    // Product 4: 14 note D Minor
+    audioPath: '/sounds',
+    notes: {
+        '_0.D_ding': '0.D 3',
+        '_1.A3': '1.A3',
+        '_1.Bb3': '2.Bb3',
+        '_1.C4': '3.C4',
+        '_1.D4': '4.D4',
+        '_1.E4': '5.E4',
+        '_1.F4': '6.F4',
+        '_1.G4': '7.G4',
+        '_1.A4': '8.A4',
+        '_1.C5': '9.C5',
+        '_1.D5': '10.D5',
+        '_1.E5': '11.E5',
+        '_1.F5': '12.F5',
+        '_1.A5': '13.A5'
+    }
+},
+
+// CHANGE 4: Replace Product 6 with Product 5 (around line 88-104)
+// Delete Product 6 entirely and add Product 5:
+5: {
+    // Product 5: 18 note D Minor Steel
+    audioPath: '/sounds',
+    notes: {
+        '_0.D_ding': '0.D 3',
+        '_1.A3': '1.A3',
+        '_1.Bb3': '2.Bb3',
+        '_1.C4': '3.C4',
+        '_1.D4': '4.D4',
+        '_1.E4': '5.E4',
+        '_1.F4': '6.F4',
+        '_1.G4': '7.G4',
+        '_1.A4': '8.A4',
+        '_1.C5': '9.C5',
+        '_1.D5': '10.D5',
+        '_1.E5': '11.E5',
+        '_1.F5': '12.F5',
+        '_1.A5': '13.A5',
+        '_1.C6': '14.C6',
+        '_1.D6': '15.D6',
+        '_1.E6': '16.E6',
+        '_1.F6': '17.F6'
+    }
+}
+// Product 6 (Hijaz) removed - no virtual pantam
+
+// CHANGE 5: Note button display logic (around line 273-315)
+// Replace entire noteButtons const with:
+const noteButtons = (productId === 1 || productId === 2) ? [
+    // Product 1 & 2: 9 notes
+    { id: '_0.D_ding', label: 'D3', key: 'a' },
+    { id: '_1.A3', label: 'A3', key: 's' },
+    { id: '_1.Bb3', label: 'Bb3', key: 'd' },
+    { id: '_1.C4', label: 'C4', key: 'f' },
+    { id: '_1.D4', label: 'D4', key: 'g' },
+    { id: '_1.E4', label: 'E4', key: 'h' },
+    { id: '_1.F4', label: 'F4', key: 'j' },
+    { id: '_1.G4', label: 'G4', key: 'k' },
+    { id: '_1.A4', label: 'A4', key: 'l' }
+] : productId === 3 ? [
+    // Product 3: 12 notes
+    { id: '_0.D_ding', label: 'D3', key: 'a' },
+    { id: '_1.A3', label: 'A3', key: 's' },
+    { id: '_1.Bb3', label: 'Bb3', key: 'd' },
+    { id: '_1.C4', label: 'C4', key: 'f' },
+    { id: '_1.D4', label: 'D4', key: 'g' },
+    { id: '_1.E4', label: 'E4', key: 'h' },
+    { id: '_1.F4', label: 'F4', key: 'j' },
+    { id: '_1.G4', label: 'G4', key: 'k' },
+    { id: '_1.A4', label: 'A4', key: 'l' },
+    { id: '_1.C5', label: 'C5', key: 'z' },
+    { id: '_1.D5', label: 'D5', key: 'x' },
+    { id: '_1.E5', label: 'E5', key: 'c' }
+] : productId === 4 ? [
+    // Product 4: 14 notes
+    { id: '_0.D_ding', label: 'D3', key: 'a' },
+    { id: '_1.A3', label: 'A3', key: 's' },
+    { id: '_1.Bb3', label: 'Bb3', key: 'd' },
+    { id: '_1.C4', label: 'C4', key: 'f' },
+    { id: '_1.D4', label: 'D4', key: 'g' },
+    { id: '_1.E4', label: 'E4', key: 'h' },
+    { id: '_1.F4', label: 'F4', key: 'j' },
+    { id: '_1.G4', label: 'G4', key: 'k' },
+    { id: '_1.A4', label: 'A4', key: 'l' },
+    { id: '_1.C5', label: 'C5', key: 'z' },
+    { id: '_1.D5', label: 'D5', key: 'x' },
+    { id: '_1.E5', label: 'E5', key: 'c' },
+    { id: '_1.F5', label: 'F5', key: 'v' },
+    { id: '_1.A5', label: 'A5', key: 'b' }
+] : [
+    // Product 5: 18 notes
+    { id: '_0.D_ding', label: 'D3', key: 'a' },
+    { id: '_1.A3', label: 'A3', key: 's' },
+    { id: '_1.Bb3', label: 'Bb3', key: 'd' },
+    { id: '_1.C4', label: 'C4', key: 'f' },
+    { id: '_1.D4', label: 'D4', key: 'g' },
+    { id: '_1.E4', label: 'E4', key: 'h' },
+    { id: '_1.F4', label: 'F4', key: 'j' },
+    { id: '_1.G4', label: 'G4', key: 'k' },
+    { id: '_1.A4', label: 'A4', key: 'l' },
+    { id: '_1.C5', label: 'C5', key: 'z' },
+    { id: '_1.D5', label: 'D5', key: 'x' },
+    { id: '_1.E5', label: 'E5', key: 'c' },
+    { id: '_1.F5', label: 'F5', key: 'v' },
+    { id: '_1.A5', label: 'A5', key: 'b' },
+    { id: '_1.C6', label: 'C6', key: 'n' },
+    { id: '_1.D6', label: 'D6', key: 'm' },
+    { id: '_1.E6', label: 'E6', key: ',' },
+    { id: '_1.F6', label: 'F6', key: '.' }
+];

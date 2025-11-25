@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+// Metadata is exported from metadata.ts file in this directory
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',

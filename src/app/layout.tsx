@@ -21,15 +21,42 @@ const dancingScript = Dancing_Script({
 });
 
 export const metadata: Metadata = {
-  title: "Vanda - Handpan Instruments",
-  description: "Premium handmade handpan instruments crafted with precision and passion. Explore our collection of D Kurd, C Major, A Minor Galaxy scales and more.",
-  keywords: ["handpan", "hang drum", "percussion", "music instruments", "D Kurd", "handmade"],
-  authors: [{ name: "Vanda Handpan" }],
+  metadataBase: new URL('https://vanda-handpan.com'),
+  title: {
+    default: "Vanda Handpan - Premium Handmade Instruments | D Kurd, C Major & Custom Scales",
+    template: "%s | Vanda Handpan"
+  },
+  description: "Premium handmade handpan instruments crafted with precision and passion. Explore our collection of D Kurd, C Major, A Minor Galaxy scales and more. Custom tunings available.",
+  keywords: [
+    "handpan",
+    "hang drum",
+    "percussion instruments",
+    "music instruments",
+    "D Kurd handpan",
+    "C Major handpan",
+    "A Minor Galaxy",
+    "handmade instruments",
+    "custom handpan",
+    "handpan maker",
+    "steel tongue drum",
+    "Vanda handpan",
+    "buy handpan",
+    "handpan for sale"
+  ],
+  authors: [{ name: "Vanda Handpan", url: "https://vanda-handpan.com" }],
   creator: "Vanda Handpan",
   publisher: "Vanda Handpan",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "https://vanda-handpan.com",
+  },
   openGraph: {
-    title: "Vanda - Handpan Instruments",
-    description: "Premium handmade handpan instruments crafted with precision and passion.",
+    title: "Vanda Handpan - Premium Handmade Instruments",
+    description: "Premium handmade handpan instruments crafted with precision and passion. D Kurd, C Major, A Minor Galaxy scales and custom tunings available.",
     url: "https://vanda-handpan.com",
     siteName: "Vanda Handpan",
     images: [
@@ -37,7 +64,7 @@ export const metadata: Metadata = {
         url: "/icon.webp",
         width: 1200,
         height: 630,
-        alt: "Vanda Handpan Logo",
+        alt: "Vanda Handpan - Premium Handmade Instruments",
       },
     ],
     locale: "en_US",
@@ -45,9 +72,20 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vanda - Handpan Instruments",
+    title: "Vanda Handpan - Premium Handmade Instruments",
     description: "Premium handmade handpan instruments crafted with precision and passion.",
     images: ["/icon.webp"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   icons: {
     icon: [
@@ -65,7 +103,12 @@ export const metadata: Metadata = {
       },
     ],
   },
-  manifest: "/manifest.json",
+  verification: {
+    // Add your verification codes here after registering with search engines
+    // google: 'your-google-verification-code',
+    // yandex: 'your-yandex-verification-code',
+    // bing: 'your-bing-verification-code',
+  },
 };
 
 export default function RootLayout({
@@ -85,8 +128,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icon.webp" />
         <link rel="apple-touch-icon-precomposed" href="/icon.webp" />
 
-        {/* PWA Manifest */}
-        <link rel="manifest" href="/manifest.json" />
+        {/* PWA Manifest - Auto-generated from manifest.ts */}
 
         {/* Theme colors */}
         <meta name="theme-color" content="#FFD700" />

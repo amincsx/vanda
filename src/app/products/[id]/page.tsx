@@ -27,6 +27,16 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const images = [product.images.front, product.images.side, product.images.back, product.images.sideView];
   const imageLabels = ['front view', '80%', '60%', 'side view'];
 
+  const productSongMap: Record<number, string> = {
+    1: "/sounds/D kurd 9 note song.mp3",
+    2: "/sounds/D kurd 9 note song.mp3",
+    3: "/sounds/D kurd 12 note song.mp3",
+    4: "/sounds/D kurd 14 note song.mp3",
+    5: "/sounds/D kurd 14 note song.mp3",
+  };
+
+  const songSrc = encodeURI(productSongMap[productId] ?? "/sounds/D kurd 14 note song.mp3");
+
   // Minimum swipe distance (in px)
   const minSwipeDistance = 50;
 
@@ -205,7 +215,8 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
           </div>
 
           {/* Virtual Pantam - Available for supported products - Full Width Below */}
-          {(productId === 1 || productId === 2 || productId === 3 || productId === 4 || productId === 6) && (
+          {/* Products: 1 (9-note), 2 (9-note Echo), 3 (12-note), 4 (14-note), 5 (18-note) - Hijaz (6) excluded */}
+          {(productId === 1 || productId === 2 || productId === 3 || productId === 4 || productId === 5) && (
             <div className="mt-8 sm:mt-12 px-2 sm:px-0">
               <VirtualPantam productId={productId} />
 
@@ -228,14 +239,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                       filter: 'invert(1)',
                     }}
                   >
-                    <source
-                      src={productId === 1 ? "/sounds/D kurd 9 note song.mp3" :
-                        productId === 2 ? "/sounds/D kurd 14 note song.mp3" :
-                          productId === 3 ? "/sounds/D kurd 9 note song.mp3" :
-                            productId === 4 ? "/sounds/D kurd 12 note song.mp3" :
-                              "/sounds/D kurd 12 note song.mp3"}
-                      type="audio/mpeg"
-                    />
+                    <source src={songSrc} type="audio/mpeg" />
                     Your browser does not support the audio element.
                   </audio>
                 </div>
@@ -244,7 +248,8 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
           )}
 
           {/* Virtual Pantam Link for other products */}
-          {productId !== 1 && productId !== 2 && productId !== 3 && productId !== 4 && productId !== 6 && (
+          {/* Only show this for products without virtual pantam (currently just Hijaz - product 6) */}
+          {productId !== 1 && productId !== 2 && productId !== 3 && productId !== 4 && productId !== 5 && (
             <div className="mt-8 sm:mt-12 max-w-md mx-auto px-2 sm:px-0">
               <div className="bg-white/5 backdrop-blur-md border border-yellow-500/20 rounded-xl p-4">
                 <h3 className="text-base font-semibold text-white mb-2">
