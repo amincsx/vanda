@@ -16,8 +16,11 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
     const [keyboardEnabled, setKeyboardEnabled] = useState(false);
     const [isPlayingSequence, setIsPlayingSequence] = useState(false);
     const [showInfo, setShowInfo] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const svgRef = useRef<SVGSVGElement>(null);
     const lastPlayedRef = useRef<{ [key: string]: number }>({});
+    const audioContextRef = useRef<AudioContext | null>(null);
+    const audioBuffersRef = useRef<{ [key: string]: AudioBuffer }>({});
 
     // Note mappings for each product - all audio files now in /sounds folder
     const noteConfigs: { [key: number]: { audioPath: string; notes: NoteMapping } } = {
@@ -110,60 +113,51 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
         return null;
     }
 
-    /*
-    // Initialize Web Audio API and preload all audio buffers
+    // Initialize Web Audio API with smart loading (no IDM interference)
     useEffect(() => {
-      const initAudio = async () => {
-        try {
-          // Create audio context
-          const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
-          audioContextRef.current = new AudioContextClass();
-          
-          console.log('🎵 Audio Context created');
-          
-          // Load all audio files into buffers
-          const loadPromises = Object.entries(config.notes).map(async ([noteId, audioFile]) => {
+        const initAudio = async () => {
             try {
-              const audioPath = `/D kord 9 note/${audioFile}.mp3`;
-              console.log(`� Loading: ${audioPath}`);
-              
-              const response = await fetch(audioPath);
-              const arrayBuffer = await response.arrayBuffer();
-              const audioBuffer = await audioContextRef.current!.decodeAudioData(arrayBuffer);
-              
-              audioBuffersRef.current[noteId] = audioBuffer;
-              console.log(`✅ Loaded: ${noteId}`);
-            } catch (error) {
-              console.error(`❌ Error loading ${noteId}:`, error);
-            }
-          });
-          
-          await Promise.all(loadPromises);
-          console.log(`🎵 All audio loaded! Total: ${Object.keys(audioBuffersRef.current).length}`);
-          setIsLoading(false);
-        } catch (error) {
-          console.error('❌ Audio initialization error:', error);
-          setIsLoading(false);
-        }
-      };
-  
-      initAudio();
-      
-      // Cleanup
-      return () => {
-        if (audioContextRef.current) {
-          audioContextRef.current.close();
-        }
-      };
-    }, [config]);
-    */
+                // Create audio context
+                const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+                audioContextRef.current = new AudioContextClass();
 
-    // Simple, direct audio playback - WORKS EVERY TIME
+                console.log('🎵 Audio Context created');
+
+                // Pre-create Audio objects for each note (doesn't trigger IDM)
+                Object.entries(config.notes).forEach(([noteId, audioFile]) => {
+                    const audioPath = `${config.audioPath}/${audioFile}.mp3`;
+                    const audio = new Audio();
+                    audio.preload = 'auto';
+                    audio.volume = 0.8;
+                    audio.src = audioPath; // This loads but doesn't trigger IDM
+                    audioBuffersRef.current[noteId] = audio as any; // Store Audio objects
+                    console.log(`🎵 Prepared: ${noteId}`);
+                });
+
+                console.log(`🎵 All audio prepared! Total: ${Object.keys(audioBuffersRef.current).length}`);
+                setIsLoading(false);
+            } catch (error) {
+                console.error('❌ Audio initialization error:', error);
+                setIsLoading(false);
+            }
+        };
+
+        initAudio();
+
+        // Cleanup
+        return () => {
+            if (audioContextRef.current) {
+                audioContextRef.current.close();
+            }
+        };
+    }, [config]);
+
+    // Optimized audio playback (no IDM interference)
     const playNote = (noteId: string) => {
-        // Debounce: prevent same note from playing within 200ms
+        // Debounce: prevent same note from playing within 100ms (reduced for better responsiveness)
         const now = Date.now();
         const lastPlayed = lastPlayedRef.current[noteId] || 0;
-        if (now - lastPlayed < 200) {
+        if (now - lastPlayed < 100) {
             console.log(`⏭️ Skipping duplicate play of ${noteId}`);
             return;
         }
@@ -175,17 +169,48 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
         setActiveNote(noteId);
         setTimeout(() => setActiveNote(null), 150);
 
-        // Get file name
+        // Activate audio context if needed
+        activateAudioContext();
+
+        // Use pre-created Audio object for fast playback
+        const audioElement = audioBuffersRef.current[noteId] as HTMLAudioElement;
+        if (audioElement) {
+            try {
+                // Reset to beginning and play
+                audioElement.currentTime = 0;
+                const playPromise = audioElement.play();
+
+                if (playPromise !== undefined) {
+                    playPromise.catch(e => {
+                        console.error('Play error:', e);
+                        // Fallback: create new audio element
+                        const fileName = config.notes[noteId];
+                        if (fileName) {
+                            const fallbackAudio = new Audio(`${config.audioPath}/${fileName}.mp3`);
+                            fallbackAudio.volume = 0.8;
+                            fallbackAudio.play().catch(() => { });
+                        }
+                    });
+                }
+
+                console.log(`🎵 Played via optimized Audio: ${noteId}`);
+                return;
+            } catch (error) {
+                console.error('Audio playback error:', error);
+            }
+        }
+
+        // Final fallback
         const fileName = config.notes[noteId];
         if (!fileName) {
             console.error(`No file for ${noteId}`);
             return;
         }
 
-        // Create and play audio immediately
+        console.log(`🎵 Fallback to new Audio: ${noteId}`);
         const audio = new Audio(`${config.audioPath}/${fileName}.mp3`);
         audio.volume = 0.8;
-        audio.play().catch(e => console.error('Play error:', e));
+        audio.play().catch(e => console.error('Fallback play error:', e));
     };
 
     const handleNoteClick = (event: React.MouseEvent<SVGElement>) => {
@@ -372,11 +397,40 @@ export default function VirtualPantam({ productId }: VirtualPantamProps) {
         };
 
         window.addEventListener('keydown', handleKeyPress);
-        return () => window.removeEventListener('keydown', handleKeyPress);
     }, [keyboardEnabled, config]);
 
+    // Handle audio context activation (required by browsers)
+    const activateAudioContext = async () => {
+        if (audioContextRef.current && audioContextRef.current.state === 'suspended') {
+            try {
+                await audioContextRef.current.resume();
+                console.log('🎵 Audio Context activated');
+            } catch (error) {
+                console.error('Failed to activate audio context:', error);
+            }
+        }
+    };
+
+    // Show loading state while audio is initializing
+    if (isLoading) {
+        return (
+            <div className="bg-white/5 backdrop-blur-md border border-yellow-500/20 rounded-xl p-8 relative">
+                <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500"></div>
+                    <div className="text-white text-lg">Preparing audio system...</div>
+                    <div className="text-gray-400 text-sm text-center max-w-md">
+                        Setting up optimized audio playback without download interruptions
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
-        <div className="bg-white/5 backdrop-blur-md border border-yellow-500/20 rounded-xl p-8 relative">
+        <div
+            className="bg-white/5 backdrop-blur-md border border-yellow-500/20 rounded-xl p-8 relative"
+            onClick={activateAudioContext} // Activate audio context on any click
+        >
             {/* Info Modal Popup */}
             {showInfo && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50" onClick={() => setShowInfo(false)}>
